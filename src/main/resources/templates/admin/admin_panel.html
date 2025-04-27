@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}"
+      lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin</title>
+    </head>
+    <body>
+        <main layout:fragment="content">
+            <h1>Admin panel</h1>
+            <div class="container mt-4">
+                <ul class="nav nav-tabs"
+                    id="myTab"
+                    role="tablist">
+                    <li class="nav-item"
+                        role="presentation">
+                        <button class="nav-link active"
+                                id="user-list-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#user-list"
+                                type="button"
+                                role="tab">Users list</button>
+                    </li>
+                    <li class="nav-item"
+                        role="presentation">
+                        <button class="nav-link"
+                                id="profile-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#add-user-form"
+                                type="button"
+                                role="tab">Add User</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active"
+                         id="user-list"
+                         role="tabpanel">
+                        <h2>All users</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Firstname</th>
+                                    <th scope="col">Lastname</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userListTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade"
+                         id="add-user-form"
+                         role="tabpanel">
+                        ЗДЕСЬ БУДЕТ ФОРМА ДОБАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div layout:fragment="scripts">
+            <script th:src="@{/js/admin.js}"></script>
+        </div>
+    </body>
+</html>
