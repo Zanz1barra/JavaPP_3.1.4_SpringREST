@@ -1,4 +1,4 @@
-package edu.kata.spring_boot_security;
+package edu.kata.spring_rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

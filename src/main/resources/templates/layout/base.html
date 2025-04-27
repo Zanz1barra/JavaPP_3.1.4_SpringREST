@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Default Title</title>
+        <meta charset="UTF-8">
+        <link th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}"
+              rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+             data-bs-theme="dark">
+            <div class="container-fluid">
+                <label class="navbar-brand">
+                    <strong sec:authorize="isAuthenticated()"
+                            th:text="${#authentication?.name ?: ''}"></strong>
+                    <span sec:authorize="isAuthenticated()"> with roles: </span>
+                    <span sec:authorize="isAuthenticated()"
+                          th:text="${#strings.listJoin(#authentication?.authorities.![name], ' ')}"></span>
+                </label>
+                <form sec:authorize="isAuthenticated()"
+                      class="d-flex"
+                      th:action="@{/logout}"
+                      th:method="post">
+                    <input type="hidden"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}"/>
+                    <button class="btn btn-outline-secondary"
+                            type="submit">Logout</button>
+                </form>
+                <form sec:authorize="!isAuthenticated()"
+                      class="d-flex"
+                      th:action="@{/login}"
+                      th:method="get">
+                    <button class="btn btn-outline-secondary"
+                            type="submit">Login</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container-fluid min-vh-100">
+            <div class="row min-vh-100">
+                <div class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse" id="sidebar">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li sec:authorize="hasRole('ADMIN')"
+                                class="nav-item">
+                                <a class="nav-link"
+                                   th:href="@{/admin}"
+                                   th:classappend="${(isAdmin != null) && isAdmin} ? 'active bg-primary text-white'">
+                                    Admin
+                                </a>
+                            </li>
+                            <li sec:authorize="hasRole('USER')" class="nav-item">
+                                <a class="nav-link"
+                                   th:href="@{/user}"
+                                   th:classappend="${(isUser != null) && isUser} ? 'active bg-primary text-white'">
+                                    User
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light" layout:fragment="content">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2" layout:fragment="header">Заголовок страницы</h1>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <footer layout:fragment="footer"></footer>
+
+        <div layout:fragment="scripts"></div>
+        <script th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
+    </body>
+</html>

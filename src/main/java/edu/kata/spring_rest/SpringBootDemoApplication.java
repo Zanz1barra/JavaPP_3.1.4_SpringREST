@@ -1,4 +1,4 @@
-package edu.kata.spring_boot_security;
+package edu.kata.spring_rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
