@@ -126,6 +126,69 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="deleteUserForm">
+                            <div class="modal-body">
+                                <input type="hidden" id="beingDeletedUserId" name="id">
+
+                                <div class="mb-3">
+                                    <label for="beingDeletedUserFirstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="beingDeletedUserFirstname" name="firstname" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="beingDeletedUserLastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="beingDeletedUserLastname" name="lastname" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="beingDeletedUserAge" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="beingDeletedUserAge" name="age" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="beingDeletedUserUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="beingDeletedUserUsername" name="username" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="beingDeletedUserRoles" class="form-label">Roles</label>
+                                    <select class="form-select"
+                                            id="beingDeletedUserRoles"
+                                            name="roles"
+                                            multiple
+                                            aria-label="Multiple select"
+                                            size="3"
+                                            disabled>
+                                        <option th:each="role : ${allRoles}"
+                                                th:value="${role.id}"
+                                                th:text="${role.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                <button type="submit"
+                                        class="btn btn-danger"
+                                        id="deleteButton">
+                                    <span id="deleteButtonText">Delete User</span>
+                                    <span id="deleteButtonSpinner"
+                                          class="spinner-border spinner-border-sm d-none"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </main>
         <div layout:fragment="scripts">
             <script th:src="@{/js/admin.js}"></script>

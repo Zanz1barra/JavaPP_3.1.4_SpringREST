@@ -1,13 +1,19 @@
 package edu.kata.spring_rest.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 import edu.kata.spring_rest.model.UserDTO;
 import edu.kata.spring_rest.service.RoleService;
 import edu.kata.spring_rest.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path = {"/admin"})
@@ -48,9 +54,17 @@ public class AdminController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            path = {"/update"})
+            path = {"/update_user"})
     @ResponseBody
     public UserDTO updateUser(@RequestBody UserDTO userDTO) {
         return userService.updateUser(userDTO);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = {"/delete_user"})
+    public ResponseEntity<?> deleteUser(@RequestBody UserDTO userDTO) {
+        userService.deleteUser(userDTO);
+        return ResponseEntity.ok().build();
     }
 }
