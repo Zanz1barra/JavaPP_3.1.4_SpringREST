@@ -20,16 +20,16 @@
                         <button class="nav-link active"
                                 id="user-list-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#user-list"
+                                data-bs-target="#user-list-tab-body"
                                 type="button"
                                 role="tab">Users list</button>
                     </li>
                     <li class="nav-item"
                         role="presentation">
                         <button class="nav-link"
-                                id="profile-tab"
+                                id="add-user-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#add-user-form"
+                                data-bs-target="#add-user-tab-body"
                                 type="button"
                                 role="tab">Add User</button>
                     </li>
@@ -37,7 +37,7 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active"
-                         id="user-list"
+                         id="user-list-tab-body"
                          role="tabpanel">
                         <h2>All users</h2>
                         <table class="table table-striped">
@@ -57,9 +57,87 @@
                         </table>
                     </div>
                     <div class="tab-pane fade"
-                         id="add-user-form"
+                         id="add-user-tab-body"
                          role="tabpanel">
-                        ЗДЕСЬ БУДЕТ ФОРМА ДОБАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                                    <form id="addUserForm">
+                                        <div class="mb-3">
+                                            <label for="beingAddedUserFirstname"
+                                                   class="form-label text-center d-block">
+                                                <strong>First name</strong>
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="beingAddedUserFirstname"
+                                                   placeholder="Firstname"
+                                                   autocomplete="given-name"
+                                                   required>
+                                            <label for="beingAddedUserLastname"
+                                                   class="form-label text-center d-block">
+                                                <strong>Last name</strong>
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="beingAddedUserLastname"
+                                                   placeholder="Lastname"
+                                                   autocomplete="family-name"
+                                                   required>
+                                            <label for="beingAddedUserAge"
+                                                   class="form-label text-center d-block">
+                                                <strong>Age</strong>
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="beingAddedUserAge"
+                                                   placeholder="Age"
+                                                   required>
+                                            <label for="beingAddedUserUsername"
+                                                   class="form-label text-center d-block">
+                                                <strong>Login</strong>
+                                            </label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="beingAddedUserUsername"
+                                                   placeholder="Login"
+                                                   autocomplete="username"
+                                                   required>
+                                            <label for="beingAddedUserPassword"
+                                                   class="form-label text-center d-block">
+                                                <strong>Password</strong>
+                                            </label>
+                                            <input type="password"
+                                                   class="form-control"
+                                                   id="beingAddedUserPassword"
+                                                   placeholder="Password"
+                                                   autocomplete="new-password"
+                                                   required>
+                                            <label for="beingAddedUserRoles"
+                                                   class="form-label text-center d-block">
+                                                <strong>Roles</strong>
+                                            </label>
+                                            <select class="form-select w-100"
+                                                    id="beingAddedUserRoles"
+                                                    multiple
+                                                    required>
+                                                <option th:each="role : ${allRoles}"
+                                                        th:value="${role.id}"
+                                                        th:text="${role.name}">
+                                                </option>
+                                            </select>
+                                            <button type="submit"
+                                                    class="btn btn-success"
+                                                    id="addButton">
+                                                <span id="addButtonText">Add new user</span>
+                                                <span id="addButtonSpinner"
+                                                      class="spinner-border spinner-border-sm d-none"></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -10,14 +10,20 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('editUserForm')
         .addEventListener('submit', function (e) {
             e.preventDefault();
-            saveUser();
+            updateUser();
         });
 
     document.getElementById('deleteUserForm')
         .addEventListener('submit', function (e) {
             e.preventDefault();
             deleteUser();
-        })
+        });
+
+    document.getElementById('addUserForm')
+        .addEventListener('submit', function (e) {
+            e.preventDefault();
+            addUser();
+        });
 })
 
 function loadUsers() {
@@ -118,6 +124,53 @@ function getEditModalWindow(userId) {
         });
 }
 
+function addUser() {
+    const addButton = document.getElementById('addButton');
+    const addButtonText = document.getElementById('addButtonText');
+    const addButtonSpinner = document.getElementById('addButtonSpinner');
+
+    addButton.disabled = true;
+    addButtonText.classList.add('d-none');
+    addButtonSpinner.classList.remove('d-none');
+
+    const beingAddedUser = {
+        firstname: document.getElementById('beingAddedUserFirstname').value,
+        lastname: document.getElementById('beingAddedUserLastname').value,
+        age: document.getElementById('beingAddedUserAge').value,
+        username: document.getElementById('beingAddedUserUsername').value,
+        password: document.getElementById('beingAddedUserPassword').value,
+        roles: Array.from(document.getElementById('beingAddedUserRoles').selectedOptions)
+            .map(option => ({ id: option.value, name: option.text }))
+    };
+
+    fetch('/admin/add_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [csrfHeader]: csrfToken
+        },
+        body: JSON.stringify(beingAddedUser)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Save failed');
+            return response.json();
+        })
+        .then(() => {
+            // showToast('User added successfully');
+            loadUsers();
+        })
+        .catch(error => {
+            console.error('Error adding user:', error);
+            // showToast('Error adding user', false);
+        })
+        .finally(() => {
+            // Скрыть спиннер загрузки
+            addButton.disabled = false;
+            addButtonText.classList.remove('d-none');
+            addButtonSpinner.classList.add('d-none');
+        });
+}
+
 function deleteUser() {
     const deleteButton = document.getElementById('deleteButton');
     const deleteButtonText = document.getElementById('deleteButtonText');
@@ -127,17 +180,20 @@ function deleteUser() {
     deleteButtonText.classList.add('d-none');
     deleteButtonSpinner.classList.remove('d-none');
 
+    const beingDeletedUser = {
+        id: document.getElementById('beingDeletedUserId').value
+    };
+
     fetch('/admin/delete_user', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             [csrfHeader]: csrfToken
         },
-        body: JSON.stringify({id: document.getElementById('beingDeletedUserId').value})
+        body: JSON.stringify(beingDeletedUser)
     })
         .then(response => {
             if (!response.ok) throw new Error('Delete failed');
-            // return response.json();
         })
         .then(() => {
             deleteModal.hide();
@@ -156,7 +212,7 @@ function deleteUser() {
         });
 }
 
-function saveUser() {
+function updateUser() {
     const saveButton = document.getElementById('saveButton');
     const saveButtonText = document.getElementById('saveButtonText');
     const saveButtonSpinner = document.getElementById('saveButtonSpinner');
@@ -167,7 +223,7 @@ function saveUser() {
     saveButtonSpinner.classList.remove('d-none');
 
     // Сбор данных формы
-    const formData = {
+    const beingChangedUser = {
         id: document.getElementById('beingChangedUserId').value,
         firstname: document.getElementById('beingChangedUserFirstname').value,
         lastname: document.getElementById('beingChangedUserLastname').value,
@@ -183,7 +239,7 @@ function saveUser() {
             'Content-Type': 'application/json',
             [csrfHeader]: csrfToken
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(beingChangedUser)
     })
         .then(response => {
             if (!response.ok) throw new Error('Save failed');

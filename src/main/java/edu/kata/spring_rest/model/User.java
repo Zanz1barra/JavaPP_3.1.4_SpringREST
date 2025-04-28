@@ -128,8 +128,11 @@ public class User implements UserDetails {
         return this.getClass().getName() +
                 " [id = " + id +
                 ", username = " + username +
+                ", password = " + password +
                 ", roles = " + roles +
                 ", firstname = " + firstname +
-                ", lastname = " + lastname + "]";
+                ", lastname = " + lastname +
+                ", age = " + age +
+                "]";
     }
 }

@@ -54,6 +54,14 @@ public class AdminController {
 
     @RequestMapping(
             method = RequestMethod.POST,
+            path = {"/add_user"})
+    @ResponseBody
+    public UserDTO addUser(@RequestBody UserDTO userDTO) {
+        return userService.createUser(userDTO);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
             path = {"/update_user"})
     @ResponseBody
     public UserDTO updateUser(@RequestBody UserDTO userDTO) {

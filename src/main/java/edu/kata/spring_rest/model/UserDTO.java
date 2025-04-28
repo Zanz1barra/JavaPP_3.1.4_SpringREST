@@ -76,9 +76,12 @@ public class UserDTO {
         return this.getClass().getName() +
                 " [id = " + id +
                 ", username = " + username +
+                ", password = " + password +
                 ", roles = " + roles +
                 ", firstname = " + firstname +
-                ", lastname = " + lastname + "]";
+                ", lastname = " + lastname +
+                ", age = " + age +
+                "]";
     }
 
     public static UserDTO fromUser(User user) {
