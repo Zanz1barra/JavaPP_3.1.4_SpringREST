@@ -25,10 +25,18 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             addUser();
         });
+
+    document.getElementById('add-user-tab')
+        .addEventListener('click', function (e) {
+            const roleSelect = document.getElementById('beingAddedUserRoles');
+            fillRoleSelect(roleSelect);
+            e.preventDefault();
+        })
+
 })
 
 function loadUsers() {
-    fetch('/admin/user_list')
+    fetch('/api/users/user_list')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
@@ -74,7 +82,7 @@ function loadUsers() {
 }
 
 function getDeleteModalWindow(userId) {
-    fetch(`/admin/user_data/${userId}`)
+    fetch(`/api/users/user_data/${userId}`)
         .then(response => {
             if (!response.ok) throw new Error('User not found');
             return response.json();
@@ -87,10 +95,7 @@ function getDeleteModalWindow(userId) {
             document.getElementById('beingDeletedUserUsername').value = user.username;
 
             const roleSelect = document.getElementById('beingDeletedUserRoles');
-            Array.from(roleSelect.options)
-                .forEach(option => {
-                    option.selected = user.roles.some(role => role.id == option.value)
-                });
+            fillRoleSelect(roleSelect, user);
         })
         .catch(error => {
             console.error('Error loading user:', error);
@@ -100,7 +105,7 @@ function getDeleteModalWindow(userId) {
 }
 
 function getEditModalWindow(userId) {
-    fetch(`/admin/user_data/${userId}`)
+    fetch(`/api/users/user_data/${userId}`)
         .then(response => {
             if (!response.ok) throw new Error('User not found');
             return response.json();
@@ -113,10 +118,7 @@ function getEditModalWindow(userId) {
             document.getElementById('beingChangedUserUsername').value = user.username;
 
             const roleSelect = document.getElementById('beingChangedUserRoles');
-            Array.from(roleSelect.options)
-                .forEach(option => {
-                    option.selected = user.roles.some(role => role.id == option.value)
-                });
+            fillRoleSelect(roleSelect, user);
         })
         .catch(error => {
             console.error('Error loading user:', error);
@@ -144,7 +146,7 @@ function addUser() {
             .map(option => ({ id: option.value, name: option.text }))
     };
 
-    fetch('/admin/add_user', {
+    fetch('/api/users/add_user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -185,7 +187,7 @@ function deleteUser() {
         id: document.getElementById('beingDeletedUserId').value
     };
 
-    fetch('/admin/delete_user', {
+    fetch('/api/users/delete_user', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -234,7 +236,7 @@ function updateUser() {
             .map(option => ({ id: option.value, name: option.text }))
     };
 
-    fetch('/admin/update_user', {
+    fetch('/api/users/update_user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -260,6 +262,27 @@ function updateUser() {
             saveButton.disabled = false;
             saveButtonText.classList.remove('d-none');
             saveButtonSpinner.classList.add('d-none');
+        });
+}
+
+function fillRoleSelect(roleSelect, user = null) {
+    roleSelect.innerHTML = '';
+    fetch('/api/roles/')
+        .then(response => {
+            if (!response.ok) throw new Error('Roles not found');
+            return response.json();
+        })
+        .then(responseData => Array.from(responseData)
+            .forEach(role => {
+                const roleOption = roleSelect.appendChild(document.createElement('option'));
+                roleOption.value = role.id;
+                roleOption.text = role.name;
+                if (user != null) roleOption.selected = user.roles.some(userRole => userRole.id === role.id);
+            })
+        )
+        .catch(error => {
+            console.error('Error loading roles:', error);
+            showToast('Error loading roles', false);
         });
 }
 

@@ -16,26 +16,6 @@
                 Admin panel
             </h1>
 
-            <!-- Toast для уведомлений -->
-            <div class="toast-container top-0 end-0 p-3 m-3">
-                <div class="toast align-items-center text-white bg-success"
-                     role="alert"
-                     aria-live="assertive"
-                     aria-atomic="true"
-                     id="successToast">
-                    <div class="d-flex">
-                        <div class="toast-body"
-                             id="toastMessage">
-                            Operation completed successfully!
-                        </div>
-                        <button type="button"
-                                class="btn-close btn-close-white me-2 m-auto"
-                                data-bs-dismiss="toast"
-                                aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-
             <div class="container mt-4">
                 <ul class="nav nav-tabs"
                     id="myTab"
@@ -165,10 +145,6 @@
                                                     id="beingAddedUserRoles"
                                                     multiple
                                                     required>
-                                                <option th:each="role : ${allRoles}"
-                                                        th:value="${role.id}"
-                                                        th:text="${role.name}">
-                                                </option>
                                             </select>
                                             <button type="submit"
                                                     class="btn btn-success"
@@ -271,10 +247,6 @@
                                             multiple
                                             aria-label="Multiple select"
                                             size="3">
-                                        <option th:each="role : ${allRoles}"
-                                                th:value="${role.id}"
-                                                th:text="${role.name}">
-                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -380,9 +352,6 @@
                                             aria-label="Multiple select"
                                             size="3"
                                             disabled>
-                                        <option th:each="role : ${allRoles}"
-                                                th:value="${role.id}"
-                                                th:text="${role.name}"></option>
                                     </select>
                                 </div>
                             </div>

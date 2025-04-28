@@ -41,6 +41,26 @@
             </div>
         </nav>
 
+        <!-- Toast для уведомлений -->
+        <div class="toast-container top-0 end-0 p-3 m-3">
+            <div class="toast align-items-center text-white bg-success"
+                 role="alert"
+                 aria-live="assertive"
+                 aria-atomic="true"
+                 id="successToast">
+                <div class="d-flex">
+                    <div class="toast-body"
+                         id="toastMessage">
+                        Operation completed successfully!
+                    </div>
+                    <button type="button"
+                            class="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
         <div class="container-fluid min-vh-100">
             <div class="row min-vh-100">
                 <div class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse" id="sidebar">
@@ -49,15 +69,15 @@
                             <li sec:authorize="hasRole('ADMIN')"
                                 class="nav-item">
                                 <a class="nav-link"
-                                   th:href="@{/admin}"
-                                   th:classappend="${(isAdmin != null) && isAdmin} ? 'active bg-primary text-white'">
+                                   id="adminNavLink"
+                                   th:href="@{/admin}">
                                     Admin
                                 </a>
                             </li>
                             <li sec:authorize="hasRole('USER')" class="nav-item">
                                 <a class="nav-link"
-                                   th:href="@{/user}"
-                                   th:classappend="${(isUser != null) && isUser} ? 'active bg-primary text-white'">
+                                   id="userNavLink"
+                                   th:href="@{/user}">
                                     User
                                 </a>
                             </li>
@@ -76,6 +96,7 @@
         <footer layout:fragment="footer"></footer>
 
         <script th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/js/sidebar.js}"></script>
         <div layout:fragment="scripts"></div>
     </body>
 </html>

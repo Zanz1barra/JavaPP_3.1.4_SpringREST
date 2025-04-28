@@ -23,15 +23,11 @@
                         <th scope="col">Roles</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <td th:utext="${user.id}">#</td>
-                    <td th:utext="${user.firstname}"></td>
-                    <td th:utext="${user.lastname}"></td>
-                    <td th:utext="${user.age}"></td>
-                    <td th:utext="${user.username}"></td>
-                    <td th:text="${#strings.listJoin(user.authorities.![name], ' ')}"></td>
-                </tbody>
+                <tbody id="selfUserDataTableBody"></tbody>
             </table>
         </main>
+        <div layout:fragment="scripts">
+            <script th:src="@{/js/self_user_data.js}"></script>
+        </div>
     </body>
 </html>
