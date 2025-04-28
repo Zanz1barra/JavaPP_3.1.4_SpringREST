@@ -6,11 +6,36 @@
       lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Admin</title>
+        <title>
+            Admin
+        </title>
     </head>
     <body>
         <main layout:fragment="content">
-            <h1>Admin panel</h1>
+            <h1>
+                Admin panel
+            </h1>
+
+            <!-- Toast для уведомлений -->
+            <div class="toast-container top-0 end-0 p-3 m-3">
+                <div class="toast align-items-center text-white bg-success"
+                     role="alert"
+                     aria-live="assertive"
+                     aria-atomic="true"
+                     id="successToast">
+                    <div class="d-flex">
+                        <div class="toast-body"
+                             id="toastMessage">
+                            Operation completed successfully!
+                        </div>
+                        <button type="button"
+                                class="btn-close btn-close-white me-2 m-auto"
+                                data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
             <div class="container mt-4">
                 <ul class="nav nav-tabs"
                     id="myTab"
@@ -22,7 +47,9 @@
                                 data-bs-toggle="tab"
                                 data-bs-target="#user-list-tab-body"
                                 type="button"
-                                role="tab">Users list</button>
+                                role="tab">
+                            Users list
+                        </button>
                     </li>
                     <li class="nav-item"
                         role="presentation">
@@ -31,15 +58,20 @@
                                 data-bs-toggle="tab"
                                 data-bs-target="#add-user-tab-body"
                                 type="button"
-                                role="tab">Add User</button>
+                                role="tab">
+                            Add User
+                        </button>
                     </li>
                 </ul>
 
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content"
+                     id="myTabContent">
                     <div class="tab-pane fade show active"
                          id="user-list-tab-body"
                          role="tabpanel">
-                        <h2>All users</h2>
+                        <h2>
+                            All users
+                        </h2>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -66,7 +98,9 @@
                                         <div class="mb-3">
                                             <label for="beingAddedUserFirstname"
                                                    class="form-label text-center d-block">
-                                                <strong>First name</strong>
+                                                <strong>
+                                                    First name
+                                                </strong>
                                             </label>
                                             <input type="text"
                                                    class="form-control"
@@ -76,7 +110,9 @@
                                                    required>
                                             <label for="beingAddedUserLastname"
                                                    class="form-label text-center d-block">
-                                                <strong>Last name</strong>
+                                                <strong>
+                                                    Last name
+                                                </strong>
                                             </label>
                                             <input type="text"
                                                    class="form-control"
@@ -86,7 +122,9 @@
                                                    required>
                                             <label for="beingAddedUserAge"
                                                    class="form-label text-center d-block">
-                                                <strong>Age</strong>
+                                                <strong>
+                                                    Age
+                                                </strong>
                                             </label>
                                             <input type="number"
                                                    class="form-control"
@@ -95,7 +133,9 @@
                                                    required>
                                             <label for="beingAddedUserUsername"
                                                    class="form-label text-center d-block">
-                                                <strong>Login</strong>
+                                                <strong>
+                                                    Login
+                                                </strong>
                                             </label>
                                             <input type="text"
                                                    class="form-control"
@@ -105,7 +145,9 @@
                                                    required>
                                             <label for="beingAddedUserPassword"
                                                    class="form-label text-center d-block">
-                                                <strong>Password</strong>
+                                                <strong>
+                                                    Password
+                                                </strong>
                                             </label>
                                             <input type="password"
                                                    class="form-control"
@@ -115,7 +157,9 @@
                                                    required>
                                             <label for="beingAddedUserRoles"
                                                    class="form-label text-center d-block">
-                                                <strong>Roles</strong>
+                                                <strong>
+                                                    Roles
+                                                </strong>
                                             </label>
                                             <select class="form-select w-100"
                                                     id="beingAddedUserRoles"
@@ -129,7 +173,9 @@
                                             <button type="submit"
                                                     class="btn btn-success"
                                                     id="addButton">
-                                                <span id="addButtonText">Add new user</span>
+                                                <span id="addButtonText">
+                                                    Add new user
+                                                </span>
                                                 <span id="addButtonSpinner"
                                                       class="spinner-border spinner-border-sm d-none"></span>
                                             </button>
@@ -142,39 +188,83 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal fade"
+                 id="editModal"
+                 tabindex="-1"
+                 aria-labelledby="editModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title"
+                                id="editModalLabel">
+                                Edit User
+                            </h5>
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                            </button>
                         </div>
                         <form id="editUserForm">
                             <div class="modal-body">
-                                <input type="hidden" id="beingChangedUserId" name="id">
+                                <input type="hidden"
+                                       id="beingChangedUserId"
+                                       name="id">
 
                                 <div class="mb-3">
-                                    <label for="beingChangedUserFirstname" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="beingChangedUserFirstname" name="firstname" required>
+                                    <label for="beingChangedUserFirstname"
+                                           class="form-label">
+                                        First Name
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingChangedUserFirstname"
+                                           name="firstname"
+                                           required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingChangedUserLastname" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="beingChangedUserLastname" name="lastname" required>
+                                    <label for="beingChangedUserLastname"
+                                           class="form-label">
+                                        Last Name
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingChangedUserLastname"
+                                           name="lastname"
+                                           required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingChangedUserAge" class="form-label">Age</label>
-                                    <input type="number" class="form-control" id="beingChangedUserAge" name="age" required>
+                                    <label for="beingChangedUserAge"
+                                           class="form-label">
+                                        Age
+                                    </label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="beingChangedUserAge"
+                                           name="age"
+                                           required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingChangedUserUsername" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="beingChangedUserUsername" name="username" required>
+                                    <label for="beingChangedUserUsername"
+                                           class="form-label">
+                                        Username
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingChangedUserUsername"
+                                           name="username"
+                                           required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingChangedUserRoles" class="form-label">Roles</label>
+                                    <label for="beingChangedUserRoles"
+                                           class="form-label">
+                                        Roles
+                                    </label>
                                     <select class="form-select"
                                             id="beingChangedUserRoles"
                                             name="roles"
@@ -183,18 +273,23 @@
                                             size="3">
                                         <option th:each="role : ${allRoles}"
                                                 th:value="${role.id}"
-                                                th:text="${role.name}"></option>
+                                                th:text="${role.name}">
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button"
                                         class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
+                                        data-bs-dismiss="modal">
+                                    Close
+                                </button>
                                 <button type="submit"
                                         class="btn btn-primary"
                                         id="saveButton">
-                                    <span id="saveButtonText">Save changes</span>
+                                    <span id="saveButtonText">
+                                        Save changes
+                                    </span>
                                     <span id="saveButtonSpinner"
                                           class="spinner-border spinner-border-sm d-none"></span>
                                 </button>
@@ -204,35 +299,76 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal fade"
+                 id="deleteModal"
+                 tabindex="-1"
+                 aria-labelledby="deleteModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title"
+                                id="deleteModalLabel">
+                                Delete User
+                            </h5>
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                            </button>
                         </div>
                         <form id="deleteUserForm">
                             <div class="modal-body">
-                                <input type="hidden" id="beingDeletedUserId" name="id">
+                                <input type="hidden"
+                                       id="beingDeletedUserId"
+                                       name="id">
 
                                 <div class="mb-3">
-                                    <label for="beingDeletedUserFirstname" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="beingDeletedUserFirstname" name="firstname" disabled>
+                                    <label for="beingDeletedUserFirstname"
+                                           class="form-label">
+                                        First Name
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingDeletedUserFirstname"
+                                           name="firstname"
+                                           disabled>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingDeletedUserLastname" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="beingDeletedUserLastname" name="lastname" disabled>
+                                    <label for="beingDeletedUserLastname"
+                                           class="form-label">
+                                        Last Name
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingDeletedUserLastname"
+                                           name="lastname"
+                                           disabled>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingDeletedUserAge" class="form-label">Age</label>
-                                    <input type="number" class="form-control" id="beingDeletedUserAge" name="age" disabled>
+                                    <label for="beingDeletedUserAge"
+                                           class="form-label">
+                                        Age
+                                    </label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="beingDeletedUserAge"
+                                           name="age"
+                                           disabled>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="beingDeletedUserUsername" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="beingDeletedUserUsername" name="username" disabled>
+                                    <label for="beingDeletedUserUsername"
+                                           class="form-label">
+                                        Username
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="beingDeletedUserUsername"
+                                           name="username"
+                                           disabled>
                                 </div>
 
                                 <div class="mb-3">

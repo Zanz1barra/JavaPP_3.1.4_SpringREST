@@ -1,5 +1,6 @@
 const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+const successToast = new bootstrap.Toast(document.getElementById('successToast'));
 
 const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
@@ -68,7 +69,7 @@ function loadUsers() {
         })
         .catch(error => {
             console.error('Error loading users:', error);
-            // showToast('Error loading users', false);
+            showToast('Error loading users', false);
         });
 }
 
@@ -93,7 +94,7 @@ function getDeleteModalWindow(userId) {
         })
         .catch(error => {
             console.error('Error loading user:', error);
-            // showToast('Error loading user data', false);
+            showToast('Error loading user data', false);
             deleteModal.hide();
     });
 }
@@ -119,7 +120,7 @@ function getEditModalWindow(userId) {
         })
         .catch(error => {
             console.error('Error loading user:', error);
-            // showToast('Error loading user data', false);
+            showToast('Error loading user data', false);
             editModal.hide();
         });
 }
@@ -156,12 +157,12 @@ function addUser() {
             return response.json();
         })
         .then(() => {
-            // showToast('User added successfully');
+            showToast('User added successfully');
             loadUsers();
         })
         .catch(error => {
             console.error('Error adding user:', error);
-            // showToast('Error adding user', false);
+            showToast('Error adding user', false);
         })
         .finally(() => {
             // Скрыть спиннер загрузки
@@ -197,12 +198,12 @@ function deleteUser() {
         })
         .then(() => {
             deleteModal.hide();
-            // showToast('User delete successfully');
+            showToast('User delete successfully');
             loadUsers();
         })
         .catch(error => {
             console.error('Error deleting user:', error);
-            // showToast('Error deleting user', false);
+            showToast('Error deleting user', false);
         })
         .finally(() => {
             // Скрыть спиннер загрузки
@@ -247,12 +248,12 @@ function updateUser() {
         })
         .then(() => {
             editModal.hide();
-            // showToast('User saved successfully');
+            showToast('User saved successfully');
             loadUsers();
         })
         .catch(error => {
             console.error('Error saving user:', error);
-            // showToast('Error saving user', false);
+            showToast('Error saving user', false);
         })
         .finally(() => {
             // Скрыть спиннер загрузки
@@ -260,4 +261,27 @@ function updateUser() {
             saveButtonText.classList.remove('d-none');
             saveButtonSpinner.classList.add('d-none');
         });
+}
+
+// Показать уведомление
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('successToast');
+    const toastMessage = document.getElementById('toastMessage');
+
+    toastMessage.textContent = message;
+
+    if (isSuccess) {
+        toast.classList.remove('bg-danger');
+        toast.classList.add('bg-success');
+    } else {
+        toast.classList.remove('bg-success');
+        toast.classList.add('bg-danger');
+    }
+
+    successToast.show();
+
+    // Скрыть toast через 3 секунды
+    setTimeout(() => {
+        successToast.hide();
+    }, 3000);
 }
