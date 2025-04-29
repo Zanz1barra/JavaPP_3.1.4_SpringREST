@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function loadUsers() {
-    fetch('/api/users/user_list')
+    fetch('/api/admin/user_list')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
@@ -82,7 +82,7 @@ function loadUsers() {
 }
 
 function getDeleteModalWindow(userId) {
-    fetch(`/api/users/user_data/${userId}`)
+    fetch(`/api/admin/user_data/${userId}`)
         .then(response => {
             if (!response.ok) throw new Error('User not found');
             return response.json();
@@ -105,7 +105,7 @@ function getDeleteModalWindow(userId) {
 }
 
 function getEditModalWindow(userId) {
-    fetch(`/api/users/user_data/${userId}`)
+    fetch(`/api/admin/user_data/${userId}`)
         .then(response => {
             if (!response.ok) throw new Error('User not found');
             return response.json();
@@ -146,7 +146,7 @@ function addUser() {
             .map(option => ({ id: option.value, name: option.text }))
     };
 
-    fetch('/api/users/add_user', {
+    fetch('/api/admin/add_user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ function deleteUser() {
         id: document.getElementById('beingDeletedUserId').value
     };
 
-    fetch('/api/users/delete_user', {
+    fetch('/api/admin/delete_user', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -236,7 +236,7 @@ function updateUser() {
             .map(option => ({ id: option.value, name: option.text }))
     };
 
-    fetch('/api/users/update_user', {
+    fetch('/api/admin/update_user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ function updateUser() {
 
 function fillRoleSelect(roleSelect, user = null) {
     roleSelect.innerHTML = '';
-    fetch('/api/roles/')
+    fetch('/api/admin/role_list')
         .then(response => {
             if (!response.ok) throw new Error('Roles not found');
             return response.json();

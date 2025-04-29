@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/api/users/my_data')
+    fetch('/api/user/my_data')
         .then(response => {
             if (!response.ok) throw new Error('User data not found');
             return response.json();
